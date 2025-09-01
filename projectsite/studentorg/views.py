@@ -53,6 +53,11 @@ class OrgMemberUpdateView(UpdateView):
     template_name = 'orgmem_form.html'
     success_url = reverse_lazy('orgmember-list') 
 
+class OrgMemberDeleteView(DeleteView):
+    model = OrgMember
+    template_name = 'orgmem_del.html'
+    success_url = reverse_lazy('orgmember-list')
+
 class StudentList(ListView):
     model = Student
     context_object_name = 'student'
