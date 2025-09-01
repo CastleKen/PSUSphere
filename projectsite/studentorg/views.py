@@ -47,6 +47,12 @@ class OrgMemberCreateView(CreateView):
     template_name = 'orgmem_form.html'
     success_url = reverse_lazy('orgmember-list')
 
+class OrgMemberUpdateView(UpdateView):
+    model = OrgMember
+    form_class = OrgMemberForm
+    template_name = 'orgmem_form.html'
+    success_url = reverse_lazy('orgmember-list') 
+
 class StudentList(ListView):
     model = Student
     context_object_name = 'student'
