@@ -18,7 +18,7 @@ class Program(BaseModel):
     prog_name = models.CharField(max_length=150)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
 
-    def _str_(self):
+    def __str__(self):
         return self.prog_name
     
 class Organization(BaseModel):
