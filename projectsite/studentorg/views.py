@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from studentorg.models import Organization, OrgMember, Student
+from studentorg.models import Organization, OrgMember, Student, College
 from studentorg.forms import OrganizationForm, OrgMemberForm, StudentForm
 from django.urls import reverse_lazy
 
@@ -80,3 +80,9 @@ class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'stud_del.html'
     success_url = reverse_lazy('student-list')
+
+class CollegeList(ListView):
+    model = College
+    context_object_name = 'college'
+    template_name = 'college_list.html'
+    paginate_by = 5
