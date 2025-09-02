@@ -35,6 +35,7 @@
                                 <tr>
                                     <th scope="col">Program Name</th>
                                     <th scope="col">College</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,6 +43,14 @@
                                 <tr>
                                     <td>{{ object.prog_name }}</td>
                                     <td>{{ object.college }}</td>
+                                    <td><a href="organization_list/{{ object.id }}">Edit</a></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="4" style="text-align: center">
+                                            <p class="text-sm font-weight-bold mb-0">No Records Found</p>
+                                        </td>
+                                    </tr>
                                 </tr>
                                 {% endfor %}
                             </tbody>
