@@ -122,3 +122,7 @@ class ProgramUpdateView(UpdateView):
     template_name = 'program_form.html'
     success_url = reverse_lazy('program-list')
 
+class ProgramDeleteView(DeleteView):
+    model = Program
+    template_name = 'program_del.html'
+    success_url = reverse_lazy('program-list')
