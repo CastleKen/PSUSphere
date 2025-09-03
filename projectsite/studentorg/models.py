@@ -30,10 +30,10 @@ class Organization(BaseModel):
         return self.name
     
 class Student(BaseModel):
-    student_id = models.CharField(max_length=15)
-    lastname = models.CharField(max_length=25)
-    firstname = models.CharField(max_length=25)
-    middlename = models.CharField(max_length=25, blank=True, null=True)
+    student_id = models.CharField(max_length=15, verbose_name="Student ID")
+    lastname = models.CharField(max_length=25, verbose_name="Last Name")
+    firstname = models.CharField(max_length=25, verbose_name="First Name")
+    middlename = models.CharField(max_length=25, blank=True, null=True, verbose_name="Middle Name")
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -43,3 +43,6 @@ class OrgMember(BaseModel):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     date_joined = models.DateField()
+
+    def __str__(self):
+        return f"{self.student.lastname}, {self.student.firstname}"
