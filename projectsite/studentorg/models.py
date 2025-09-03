@@ -9,13 +9,13 @@ class BaseModel(models.Model):
         abstract = True
 
 class College(BaseModel):
-    college_name = models.CharField(max_length=150)
+    college_name = models.CharField(max_length=150, verbose_name="College Name")
 
     def __str__(self):
         return self.college_name
 
 class Program(BaseModel):
-    prog_name = models.CharField(max_length=150)
+    prog_name = models.CharField(max_length=150, verbose_name="Program")
     college = models.ForeignKey(College, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -42,7 +42,7 @@ class Student(BaseModel):
 class OrgMember(BaseModel):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    date_joined = models.DateField()
+    date_joined = models.DateField(verbose_name="Date Joined")
 
     def __str__(self):
         return f"{self.student.lastname}, {self.student.firstname}"
