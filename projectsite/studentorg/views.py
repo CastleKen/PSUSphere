@@ -30,6 +30,8 @@ class HomePageView(ListView):
         )
 
         context["students_joined_this_year"] = count
+        context["total_programs"] = Program.objects.count()
+        context["total_organizations"] = Organization.objects.count()
         return context
 
 class OrganizationList(ListView):
@@ -85,6 +87,13 @@ class OrgMemberList(ListView):
                 Q(organization__name__icontains=query)
             )
         return qs
+    
+    def get_ordering(self):
+        allowed = ["student__lastname", "date_joined"]
+        sort_by = self.request.GET.get("sort_by")
+        if sort_by in allowed:
+            return sort_by
+        return "organization__name"
     
 class OrgMemberCreateView(CreateView):
     model = OrgMember
@@ -144,6 +153,14 @@ class CollegeList(ListView):
     context_object_name = 'college'
     template_name = 'college_list.html'
     paginate_by = 5
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get('q')
+
+        if query:
+            qs = qs.filter(college_name__icontains=query)
+        return qs
 
 class CollegeCreateView(CreateView):
     model = College
