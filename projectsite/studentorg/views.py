@@ -73,6 +73,19 @@ class OrgMemberList(ListView):
     template_name = 'orgmem_list.html'
     paginate_by = 5
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get('q')
+
+        if query:
+            qs = qs.filter(
+                Q(student__firstname__icontains=query) |
+                Q(student__lastname__icontains=query) |
+                Q(student__student_id__icontains=query) |
+                Q(organization__name__icontains=query)
+            )
+        return qs
+    
 class OrgMemberCreateView(CreateView):
     model = OrgMember
     form_class = OrgMemberForm
@@ -96,6 +109,19 @@ class StudentList(ListView):
     template_name = 'stud_list.html'
     paginate_by = 5
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get('q')
+
+        if query:
+            qs = qs.filter(
+                Q(lastname__icontains=query) |
+                Q(firstname__icontains=query) |
+                Q(middlename__icontains=query) |
+                Q(student_id__icontains=query)
+            )
+        return qs
+    
 class StudentCreateView(CreateView):
     model = Student
     form_class = StudentForm
@@ -148,6 +174,14 @@ class ProgramList(ListView):
         if sort_by in allowed:
             return sort_by
         return "prog_name"
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get('q')
+
+        if query:
+            qs = qs.filter(prog_name__icontains=query)
+        return qs
 
 class ProgramCreateView(CreateView):
     model = Program
